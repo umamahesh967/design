@@ -1,0 +1,5 @@
+https://www.youtube.com/playlist?list=PLTyWtrsGknYd0JgqeARypdRy-SX1ORYhs
+
+https://dzone.com/articles/design-patterns-for-microservices-1
+
+https://microservices.io/patterns/microservices.html

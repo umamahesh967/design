@@ -1,0 +1,6 @@
+
+https://github.com/donnemartin/system-design-primer/blob/master/images/zdCAkB3.png
+
+
+Look at the end of the page for all system design topics in below link.
+https://medium.com/must-know-computer-science/system-design-sharding-data-partitioning-b7201596aafa

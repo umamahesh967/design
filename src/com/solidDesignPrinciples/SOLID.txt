@@ -1,0 +1,392 @@
+Design Principles:
+Is a basic tool or technique that can be applied to designing or writing code to make that code more maintainable, flexible or extensible.
+
+SOLID Design Principles: Important when you are designing software system. SOLID is an Acronym.
+These are not the only principles we have. But these are the important ones.
+1. Single Responsibility Principle
+2. Open Closed Principle
+3. Liskov Substitution Principle
+4. Interface Segregation Principle
+5. Dependency Inversion Principle
+
+
+1. Single Responsibility Principle
+There should never be more than one reason for a class to change.
+(or)
+Every object in your system should have a single responsibility, and all the object's service should be focused on carrying out that single responsibility.
+
+Example1:
+
+Single Class With many Functionalities
+    class Automobile
+        start()
+        stop()
+        changeTires(Tire [])
+        drive()
+        wash()
+        checkOil()
+        getOil():int
+
+Separate class with their corresponding functionalities
+    Class Driver
+        drive(Automobile)
+
+    class CarWash
+        wash(Automobile)
+
+    class Mechanic
+        changeTires(Automobile, Tire[])
+        checkOil(Automobile)
+
+    class Automobile
+        start()
+        stop()
+        getOil(): int
+
+<!-- Example2:-
+Here below class is doing many functionalities, which violates Single Responsibility Principle
+    Class User Controller
+        createUser(string userJson):User
+        isValidUser():Boolean
+        storeUser() -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+2. Open Closed Principle
+Class should be open for extension and closed for modification. This OCP is all about allowing change, but doing it without requiring you to modify existing code.
+
+Closed for modification:- Existing code remains unchanged (You close classes by not allowing anyone to touch your working code).
+
+Open for Extension:- Extend existing behaviour.
+Suppose somelese came along, and they just have to change your existing (or) add additional behaviour. You really don't want them messing with your perfect code.
+You can let them subclass your class, and then they can override your method to work like they want it to. So even though they didn't mess with your working code,
+you still left your class open for extension.
+
+
+Class InstrumentSpec
+    model: String
+
+    getBuilder(): Builder
+    getModel(): String
+    getType(): Type
+    matches(InstrumentSpec):Boolean
+
+
+class MondolinSpec  extends InstrumentSpec
+    getStyle(): Style
+
+    matches(MandolinSpec): Boolean
+
+
+class GuitarSpec  extends InstrumentSpec
+    numString(): int
+
+    getNumString():int
+    matches(GuitarSpec):Boolean
+
+
+
+
+
+
+
+
+
+
+
+
+3. Liskov Substitution Principle
+
+Subtypes must be subtitutable for their base type.
+
+The LSP is all about well designed Inheritance. When you inherit from a base class, you must be able to substitute your subclass for that.
+base class without changes going terribly wrong. Otherwise, you have used inheritance Incorrectly.
+
+Class Board
+    tiles:Tile[][]
+
+    getTile(int, int):Tile
+
+Class 3DBoard extends Board
+    3dTiles: Tile[][][]
+
+    getTile(int, int, int): Tile
+
+
+
+
+
+The 3dBoard class is not substitutable for Board, because none of the methods on Board class work correctly in a 3DBoard environment.
+Calling a method like getTile(2, 5) doesn't make sense FOR 3DBoard. So this design voilates the LSP.
+
+Inheritance and LSK indicate that any inherited method on 3DBoard(Sub class) should have the same meaning as they on Board(Super class).
+
+Solution: In above problem we shouldn't use Inheritance. Instead we can use association(Composition, Aggregation) and not voilate LSP.
+
+class 3DBoard
+    board: Board[]
+
+    getTile(int, int, int): Tile
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4. Interface Segregation Principle
+
+Client should not be forced to depend on Interfaces that they don't use.
+
+
+
+Interface Pollution:- We should not create large Interfaces with Unrelated Methods
+
+Signs of Interface Pollution
+1. Class have empty method Implementation.
+2. Method implementation throw UnSupportedOperationException or (Similar)
+3. Method implementation return null or default/dummy values.
+
+We should avoid Interface Pollution by writing Highly Cohesive Interface(Meaning Single Responsibility Principle).
+
+interface RestaurantInterface
+  acceptOnlineOrder();
+  takeTelephoneOrder();
+  payOnline();
+  walkInCustomerOrder();
+  payInPerson();
+
+
+
+public class OnlineClientImpl implements RestaurantInterface{
+  @Override
+  public void acceptOnlineOrder() {
+    //logic for placing online order
+  }
+  @Override
+  public void takeTelephoneOrder() {
+    //Not Applicable for Online Order
+    throw new UnsupportedOperationException();
+  }
+  @Override
+  public void payOnline() {
+    //logic for paying online
+  }
+  @Override
+  public void walkInCustomerOrder() {
+    //Not Applicable for Online Order
+    throw new UnsupportedOperationException();
+  }
+  @Override
+  public void payInPerson() {
+    //Not Applicable for Online Order
+    throw new UnsupportedOperationException();
+  }
+}
+
+
+
+
+
+Instead we can create
+
+Interface Payment
+    payForOrder()
+
+class InPersonPayment implements Payment
+    payForOrder()
+
+
+class onlinePayment implements Payment
+    payForOrder()
+
+
+
+Interface Order
+    placeOrder()
+
+class WalkInOrder implements Order
+    placeOrder()
+
+
+class TelephoneOrder implements Order
+    placeOrder()
+
+
+class OnlineOrder implements Order
+    placeOrder()
+
+
+
+
+
+
+
+
+
+
+
+
+5. Dependency Inversion Principle
+
+A. High level modules should not depend on low level modules. Both should depend on abstraction
+B. Abstraction should not depend on details. Details should depend upon abstraction.
+
+The main motto of the dependency inversion is Any higher classes should always depend upon the abstraction of the class rather than the detail.
+
+
+<!-- public class MessagePrinter {
+
+	//Writes message to a file
+	public void writeMessage(Message msg, String fileName) throws IOException {
+		Formatter formatter = new JSONFormatter();//creates formatter
+		try(PrintWriter writer = new PrintWriter(new FileWriter(fileName))) { //creates print writer
+			writer.println(formatter.format(msg)); //formats and writes message
+			writer.flush();
+		}
+	}
+}
+
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+
+		Message msg = new Message("This is a message again");
+		MessagePrinter printer = new MessagePrinter();
+		printer.writeMessage(msg, "test_msg.txt");
+	}
+
+}
+
+
+
+
+
+
+public class MessagePrinter
+{
+	//Writes message to a file
+	public void writeMessage(Message msg, Formatter formatter, PrintWriter writer) throws IOException {
+
+		writer.println(formatter.format(msg)); //formats and writes message
+		writer.flush();
+	}
+}
+
+
+public class Main
+{
+	public static void main(String[] args) throws IOException {
+
+		Message msg = new Message("This is a message again");
+		MessagePrinter printer = new MessagePrinter();
+		try(PrintWriter writer = new PrintWriter(System.out)) {
+			printer.writeMessage(msg, new JSONFormatter(), writer);
+		}
+	}
+} -->
+
+
+
+
+Example 2:-
+
+public class BackEndDeveloper {
+    public void writeJava() {
+    }
+}
+
+public class FrontEndDeveloper {
+    public void writeJavascript() {
+    }
+}
+
+public class Project {
+    private BackEndDeveloper backEndDeveloper = new BackEndDeveloper();
+    private FrontEndDeveloper frontEndDeveloper = new FrontEndDeveloper();
+    public void implement() {
+        backEndDeveloper.writeJava();
+        frontEndDeveloper.writeJavascript();
+    }
+}
+So as we can see, the Project class is a high-level module, and it depends on low-level modules such as BackEndDeveloper and FrontEndDeveloper.
+We are actually violating the first part of the dependency inversion principle.
+
+Also, by inspecting the implement function of Project.class, we realize that the methods writeJava and writeJavascript are methods bound to
+the corresponding classes. Regarding the project scope, those are details since, in both cases, they are forms of development.
+Thus, the second part of the dependency inversion principle is violated.
+
+
+
+public interface Developer {
+    void develop();
+}
+
+public class BackEndDeveloper implements Developer {
+    @Override
+    public void develop() {
+        writeJava();
+    }
+    private void writeJava() {
+    }
+}
+
+public class FrontEndDeveloper implements Developer {
+    @Override
+    public void develop() {
+        writeJavascript();
+    }
+    public void writeJavascript() {
+    }
+}
+
+public class Project {
+    private List<Developer> developers;
+    public Project(List<Developer> developers) {
+        this.developers = developers;
+    }
+    public void implement() {
+        developers.forEach(d->d.develop());
+    }
+}
+
+The outcome is that the Project class does not depend on lower level modules, but rather abstractions.
+Also, low-level modules and their details depend on abstractions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,83 @@
+https://en.wikipedia.org/wiki/Behavioral_pattern
+
+Behavioural design pattern is specifically concerned with communication between objects.
+
+
+
+Examples of this type of design pattern include:
+
+**Not Required**
+Blackboard design pattern:
+ provides a computational framework for the design and implementation of systems that integrate large and diverse specialized modules, and implement complex, non-deterministic control strategies
+
+**Required**
+Chain of responsibility pattern:
+ Command objects are handled or passed on to other objects by logic-containing processing objects
+
+**Required**
+Command pattern:
+ Command objects encapsulate an action and its parameters
+
+**Not Required**
+"Externalize the stack":
+ Turn a recursive function into an iterative one that uses a stack[1]
+
+**Not Required**
+Interpreter pattern:
+ Implement a specialized computer language to rapidly solve a specific set of problems
+
+**Required**
+Iterator pattern:
+ Iterators are used to access the elements of an aggregate object sequentially without exposing its underlying representation
+
+**Required**
+Mediator pattern:
+ Provides a unified interface to a set of interfaces in a subsystem
+
+**Required**
+Memento pattern:
+ Provides the ability to restore an object to its previous state (rollback)
+
+**Not Required**
+Null object pattern:
+ Designed to act as a default value of an object
+
+**Required**
+Observer pattern:
+ a.k.a. Publish/Subscribe or Event Listener. Objects register to observe an event that may be raised by another object
+
+**Not Required**
+Weak reference pattern:
+ De-couple an observer from an observable[2]
+
+**Not Required**
+Protocol stack:
+ Communications are handled by multiple layers, which form an encapsulation hierarchy[3]
+
+**Not Required**
+Scheduled-task pattern:
+ A task is scheduled to be performed at a particular interval or clock time (used in real-time computing)
+
+**Not Required**
+Single-serving visitor pattern:
+ Optimise the implementation of a visitor that is allocated, used only once, and then deleted
+
+**Not Required**
+Specification pattern:
+ Recombinable business logic in a boolean fashion
+
+**Required**
+State pattern:
+ A clean way for an object to partially change its type at runtime
+
+**Required**
+Strategy pattern:
+ Algorithms can be selected on the fly, using composition
+
+**Required**
+Template method pattern:
+ Describes the program skeleton of a program; algorithms can be selected on the fly, using inheritance
+
+**Required**
+Visitor pattern:
+ A way to separate an algorithm from an object

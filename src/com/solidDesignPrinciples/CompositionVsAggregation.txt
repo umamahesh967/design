@@ -1,0 +1,13 @@
+
+*********Very Good*********
+https://www.visual-paradigm.com/guide/uml-unified-modeling-language/uml-aggregation-vs-composition/#:~:text=Aggregation%20implies%20a%20relationship%20where,)%20and%20Room%20(child).
+
+https://www.geeksforgeeks.org/association-composition-aggregation-java/
+
+Composition :- Part-of Relation
+               Here composed object does not exist without parent object.
+               Symbol:- DarK rhombus at parent.
+
+Aggregation :- Has-A Relation
+               Here composed(Child) object can exist independently.
+               Symbol:- Light rhombus at parent.
