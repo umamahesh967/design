@@ -1,0 +1,64 @@
+Kubernetes => It is a container orchestration technology used to orchestrate the deployment and management of hundreds
+              and thousands of containers in a clustered environment.
+
+replicaset => replica set ensures that a sufficient/minimum number of replicas or pods are available at all times. Now let's see
+              if we were to delete one of these pods, the replica set, ensuring that sufficient number of pods are always
+              available on the cluster.
+
+Rolling Updates => Whenever newer versions of application builds become available on the docker registry, you would like to upgrade your docker instances seamlessly.
+                   However, when you upgrade your instances you do not want to upgrade all of them at once as this may impact users accessing your
+                   applications so you might want to upgrade them one after the other and that kind of upgrade is known as rolling updates.
+
+Deployments => A Deployment manages a set of Pods to run an application workload, usually one that doesn't maintain state.
+              You describe a desired state in a Deployment, and the Deployment Controller changes the actual state to the desired state at a controlled rate.
+              You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
+
+    Use Case
+    The following are typical use cases for Deployments:
+
+    1. Create a Deployment to rollout a ReplicaSet. The ReplicaSet creates Pods in the background.
+        Check the status of the rollout to see if it succeeds or not.
+    2. Declare the new state of the Pods by updating the PodTemplateSpec of the Deployment.
+        A new ReplicaSet is created and the Deployment manages moving the Pods from the old ReplicaSet to the new one at a controlled rate.
+        Each new ReplicaSet updates the revision of the Deployment.
+    3. Rollback to an earlier Deployment revision if the current state of the Deployment is not stable.
+        Each rollback updates the revision of the Deployment.
+    4. Scale up the Deployment to facilitate more load.
+    5. Pause the rollout of a Deployment to apply multiple fixes to its PodTemplateSpec and then resume it to start a new rollout.
+    6. Use the status of the Deployment as an indicator that a rollout has stuck.
+    7. Clean up older ReplicaSets that you don't need anymore.
+
+    kubectl rollout history deployment/event-handler     => Gives history of previous rollout deployments
+    kubectl rollout status deployment/event-handler      => Gives status of current/latest deployment
+    kubectl rollout undo deployment/<name-of-deployment>  => Rollout to previous deployment.
+
+
+Services => services enable communication between various components within and outside of the application.
+            It helps communication between back end and front end parts and helps in establishing connectivity to an external data source.
+            Thus, services enable loose coupling between micro services in our application.
+
+     NodePort service =>  (https://wipro.udemy.com/course/learn-kubernetes/learn/lecture/9723260#overview)
+
+            external access to the application by mapping a port on the node to a port on the pod.
+
+            One of its use cases is to listen to a port on the node and forward requests on that port to a pod on the port running the web application.
+            This type of service is known as a node port service because the service listens to a port on the node and forward requests to the port.
+            Node port, where the service makes an internal port accessible on a port on the node.
+
+            To summarize in any case, whether it be a single pod on a single node, multiple pods on a single node or multiple pods on multiple nodes,
+            the service is created exactly the same without you having to do any additional steps during the service creation.
+            When pods are removed or added, the service is automatically updated, making it highly flexible and adaptive.
+
+
+     ClusterIP =>   https://wipro.udemy.com/course/learn-kubernetes/learn/lecture/9723262#overview
+            And in this case, the service creates a virtual IP inside the cluster to enable communication between different services,
+            such as a set of front end servers to a set of backend servers.
+
+     LoadBalancer =>  https://wipro.udemy.com/course/learn-kubernetes/learn/lecture/21126338#overview
+            A good example of that would be to distribute load across the different web servers in your front end tier.
+
+
+
+
+
+
